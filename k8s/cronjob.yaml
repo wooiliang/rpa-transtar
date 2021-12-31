@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: rpa-test-cronjob
+  labels:
+    app: rpa-test
+spec:
+  schedule: "*/5 * * ? *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rpa-test
+            image: ghcr.io/fastjobstech/rpa-test:latest
+            imagePullPolicy: Always
+          restartPolicy: OnFailure
+          imagePullSecrets:
+          - name: dockerconfigjson-github-com
